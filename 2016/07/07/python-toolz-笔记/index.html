@@ -1,0 +1,875 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="eybTDcglR1wFtArgyeY0EUZxyy4m-lbkIqWOT1LSdXk" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,toolz,python通用函数,函数," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="独看世人醉" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="突然发现有个python函数工具箱toolz，初看十分给力，现在开始深入学习，随便记录。">
+<meta name="keywords" content="python,toolz,python通用函数,函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python toolz 笔记">
+<meta property="og:url" content="http://zidushu.com/2016/07/07/python-toolz-笔记/index.html">
+<meta property="og:site_name" content="独看世人醉">
+<meta property="og:description" content="突然发现有个python函数工具箱toolz，初看十分给力，现在开始深入学习，随便记录。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2016-07-13T13:33:05.106Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python toolz 笔记">
+<meta name="twitter:description" content="突然发现有个python函数工具箱toolz，初看十分给力，现在开始深入学习，随便记录。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> python toolz 笔记 | 独看世人醉 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'ywugPEOtOvOLWv1S0XMiO6-OTAI9ZkwFTAmneeA4Tmo', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?50c15455e37f70aea674ff4a663eef27";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">独看世人醉</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">客观是真实的存在，认知是对世界的偏见理解。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'Lj3eZ4t79m1Ge-7XkAh3','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                python toolz 笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-07T20:09:07+08:00" content="2016-07-07">
+              2016-07-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/07/python-toolz-笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/07/python-toolz-笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="安装">安装</h2><p>要装有python，2或者3都可以，而且装有pip。Windows下打开cmd，然后输入下面字符，回车。</p>
+<blockquote>
+<p>pip install toolz</p>
+<h2 id="开始">开始</h2><p><a href="http://toolz.readthedocs.io/en/latest/api.html" title="Toolz" target="_blank" rel="noopener">Toolz的官方文档</a></p>
+</blockquote>
+<p>下面开始的都是我的中文翻译学习记录：</p>
+<p><em>注意：有些太简单或者太难没搞懂的函数没有写上</em></p>
+<h2 id="导入">导入</h2><pre><code><span class="keyword">import</span> toolz <span class="comment">#导入该函数库</span>
+</code></pre><h2 id="具体函数块_《一》Itertoolz">具体函数块 《一》Itertoolz</h2><h5 id="toolz-itertoolz-remove(predicate,_seq)[source]">toolz.itertoolz.remove(predicate, seq)[<a href="http://toolz.readthedocs.io/en/latest/api.html#toolz.itertoolz.remove" target="_blank" rel="noopener">source</a>]</h5><h3 id="返回谓词函数中的False值">返回谓词函数中的False值</h3><blockquote>
+<p>Return those items of sequence for which predicate(item) is False</p>
+<blockquote>
+<blockquote>
+<p>def iseven(x):<br>     …     return x % 2 == 0<br>list(toolz.itertoolz.remove(iseven, [1, 2, 3, 4, 5]))<br>        [1, 3, 5]<br>这里先要有一个判断真假的函数，然后根据返回的真假来删除True值。同理，可以用其它类型的逻辑判断函数（x&gt;10），总之返回真或假的，然后将list中的每个元素，分别输入到之前的逻辑判断函数中去判断真假，保留假的值，删除真值。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h5 id="toolz-itertoolz-accumulate(binop,_seq,_initial=’nodefault__’)[source]">toolz.itertoolz.accumulate(binop, seq, initial=’<strong>no</strong>default__’)[<a href="http://toolz.readthedocs.io/en/latest/api.html#toolz.itertoolz.accumulate" target="_blank" rel="noopener">source</a>]</h5><h3 id="对某list中的数进行某种方式的累积计算">对某list中的数进行某种方式的累积计算</h3><blockquote>
+<p>Repeatedly apply binary function to a sequence, accumulating results<br>对某list中的数进行某种方式的累积计算，可以是add, mul, sub, pow, truediv 等等方式，累计某数之前的值。</p>
+<blockquote>
+<p>from operator import add, mul<br>list(toolz.itertoolz.accumulate(add, [1, 2, 3, 4, 5]))<br>    [1, 3, 6, 10, 15]#结果是某数(含)之前所有数的之和<br>list(toolz.itertoolz.accumulate(mul, [1, 2, 3, 4, 5]))<br>    [1, 2, 6, 24, 120]#结果是某数(含)之前所有数的之求乘积<br>list(toolz.itertoolz.accumulate(pow, [2, 3, 4, 5])<br>    [2, 8, 4096, 1152921504606846976]#结果是累计的立方啊，后面真是太大了。恐怖。</p>
+</blockquote>
+</blockquote>
+<h5 id="toolz-itertoolz-merge_sorted(seqs,_*kwargs)[source]">toolz.itertoolz.merge_sorted(<em>seqs, *</em>kwargs)[source]</h5><h3 id="合并list，字符串,是惰性求值的。*">合并list，字符串,是惰性求值的。*</h3><blockquote>
+<p>Merge and sort a collection of sorted collections<br>This works lazily and only keeps one value from each iterable in memory.</p>
+<blockquote>
+<blockquote>
+<p>list(toolz.itertoolz.merge_sorted([1, 8, 7], [2, 4, 6]))<br>    [1, 2, 3, 4, 6, 8, 7]<br>‘’.join(merge_sorted(‘abc’, ‘abc’, ‘abc’))<br>    ‘aaabbbccc’<br>注意这里有个问题，如果原来的list不是拍好顺序的话，结果也不是排好顺序的。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h5 id="toolz-itertoolz-interleave(seqs,_pass_exceptions=())[source]">toolz.itertoolz.interleave(seqs, pass_exceptions=())[source]</h5><h3 id="连接list，字符串中的元素间隔合并ab,ef_=&gt;_aebf">连接list，字符串中的元素间隔合并ab,ef =&gt; aebf</h3><blockquote>
+<blockquote>
+<p>Interleave a sequence of sequences</p>
+<p>list(toolz.itertoolz.interleave([[1, 2], [3, 4]]))<br>    [1, 3, 2, 4]</p>
+<h5 id="toolz-itertoolz-unique(seq,_key=None)[source]">toolz.itertoolz.unique(seq, key=None)[source]</h5><h3 id="保留唯一值，删除重复值。">保留唯一值，删除重复值。</h3><p>Return only unique elements of a sequence</p>
+<blockquote>
+<p>toolz.itertoolz.tuple(unique((1, 2, 1, 3)))<br>    (1, 2, 3)</p>
+</blockquote>
+<p><em>例外情况：指定关键‘词’。</em></p>
+<blockquote>
+<p>tuple(toolz.itertoolz.unique([‘cat’, ‘mouse’, ‘dog’, ‘hen’], key=len))<br>(‘cat’, ‘mouse’)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h5 id="toolz-itertoolz-isdistinct(seq)[source]">toolz.itertoolz.isdistinct(seq)[source]</h5><h3 id="判断某个表达式是否有重复值，返回真假。">判断某个表达式是否有重复值，返回真假。</h3><blockquote>
+<p>All values in sequence are distinct</p>
+<blockquote>
+<p>toolz.itertoolz.isdistinct([1, 2, 3])<br>    True<br>toolz.itertoolz.isdistinct([1, 2, 1])<br>    False<br>toolz.itertoolz.isdistinct(“Hello”)<br>    False<br>toolz.itertoolz.isdistinct(“World”)<br>    True</p>
+</blockquote>
+</blockquote>
+<h5 id="toolz-itertoolz-take_nth(n,_seq)[source]">toolz.itertoolz.take_nth(n, seq)[source]</h5><h3 id="从list第一个值开始取值，后面的每次间隔x步取值">从list第一个值开始取值，后面的每次间隔x步取值</h3><blockquote>
+<p>Every nth item in seq</p>
+<blockquote>
+<p>list(take_nth(2, [10, 20, 30, 40, 50]))<br>    [10, 30, 50]<br>list(toolz.itertoolz.take_nth(3, [10, 20, 30, 40, 50, 60, 80, 60, 11]))<br>    [10, 40, 80]</p>
+</blockquote>
+</blockquote>
+<h5 id="toolz-itertoolz-mapcat(func,_seqs)[source]">toolz.itertoolz.mapcat(func, seqs)[source]</h5><h3 id="多个list进行map操作之后联合成一个list，高级map后串连成一个list">多个list进行map操作之后联合成一个list，高级map后串连成一个list</h3><blockquote>
+<p>Apply func to each sequence in seqs, concatenating results.</p>
+<blockquote>
+<p>list(toolz.itertoolz.mapcat(lambda s: [c.upper() for c in s],<br>     …             [[“a”, “b”], [“c”, “d”, “e”]]))<br>     [‘A’, ‘B’, ‘C’, ‘D’, ‘E’]</p>
+</blockquote>
+</blockquote>
+<h5 id="toolz-itertoolz-frequencies(seq)[source]">toolz.itertoolz.frequencies(seq)[source]</h5><h3 id="计算list所有元素出现次数。">计算list所有元素出现次数。</h3><blockquote>
+<p>Find number of occurrences of each value in seq</p>
+<blockquote>
+<p>toolz.itertoolz.frequencies([‘cat’, ‘cat’, ‘ox’, ‘pig’, ‘pig’, ‘cat’])<br>    {‘cat’: 3, ‘ox’: 1, ‘pig’: 2}</p>
+</blockquote>
+</blockquote>
+<h5 id="toolz-itertoolz-iterate(func,_x)[source]">toolz.itertoolz.iterate(func, x)[source]</h5><h3 id="反复应用某种函数，可以和next结合使用。">反复应用某种函数，可以和next结合使用。</h3><pre><code><span class="constant">Repeatedly</span> apply a function func onto an original input
+
+<span class="constant">Yields</span> x, <span class="keyword">then</span> func(x), <span class="keyword">then</span> func(func(x)), <span class="keyword">then</span> func(func(func(x))), etc..
+
+
+<span class="prompt">&gt;&gt;</span> double = lambda <span class="symbol">x:</span> x * <span class="number">2</span>
+<span class="prompt">&gt;&gt;</span> powers_of_two = toolz.itertoolz.iterate(double, <span class="number">1</span>)
+<span class="prompt">&gt;&gt;</span> next(powers_of_two)
+<span class="number">1</span>
+<span class="prompt">&gt;&gt;</span> next(powers_of_two)
+<span class="number">2</span>
+<span class="prompt">&gt;&gt;</span> next(powers_of_two)
+<span class="number">4</span>
+<span class="prompt">&gt;&gt;</span> next(powers_of_two)
+<span class="number">8</span>
+</code></pre><h5 id="toolz-itertoolz-partition(n,_seq,_pad=’nopad__’)[source]">toolz.itertoolz.partition(n, seq, pad=’<strong>no</strong>pad__’)[source]</h5><h3 id="将list分成n分，最后不够的分话就不要了或者补充参数pad=None">将list分成n分，最后不够的分话就不要了或者补充参数pad=None</h3><blockquote>
+<p>Partition sequence into tuples of length n</p>
+<p>If the length of seq is not evenly divisible by n, the final tuple is dropped if pad is not specified, or filled to length n by pad:</p>
+<blockquote>
+<p>list(toolz.itertoolz.partition(3, [1, 2, 3, 4]))</p>
+</blockquote>
+</blockquote>
+<pre><code><span class="list">[<span class="list">(<span class="keyword">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span>]
+
+&gt;&gt;list<span class="list">(<span class="keyword">toolz.itertoolz.partition</span><span class="list">(<span class="keyword">3</span>, <span class="list">[<span class="keyword">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], pad=None))
+
+<span class="list">[<span class="list">(<span class="keyword">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span>, <span class="list">(<span class="keyword">4</span>, <span class="number">5</span>, None)</span>]</span></span></span></span></span>
+</code></pre><h5 id="toolz-itertoolz-partition_all(n,_seq)[source]">toolz.itertoolz.partition_all(n, seq)[source]</h5><h3 id="将list平均分成n分，不够分，则其对应值为空">将list平均分成n分，不够分，则其对应值为空</h3><blockquote>
+<p>Partition all elements of sequence into tuples of length at most n</p>
+<p>The final tuple may be shorter to accommodate extra elements.</p>
+<blockquote>
+<p>list(toolz.itertoolz.partition_all(2, [1, 2, 3, 4]))<br>    [(1, 2), (3, 4)]<br>list(toolz.itertoolz.partition_all(2, [1, 2, 3, 4, 5]))<br>    [(1, 2), (3, 4), (5,)]</p>
+</blockquote>
+</blockquote>
+<h5 id="toolz-itertoolz-diff(seqs,_*kwargs)[source]">toolz.itertoolz.diff(<em>seqs, *</em>kwargs)[source]</h5><h3 id="找出两个list不同的元素。">找出两个list不同的元素。</h3><blockquote>
+<p>Return those items that differ between sequences</p>
+<blockquote>
+<blockquote>
+<p>list(toolz.itertoolz.diff([1, 2, 3], [1, 2, 10, 100]))<br>    [(3, 10)]</p>
+</blockquote>
+</blockquote>
+<p>Shorter sequences may be padded with a default value:</p>
+<h5 id="找出不同的元素并且逐一分好类，如果哪里少，补充None">找出不同的元素并且逐一分好类，如果哪里少，补充None</h5><blockquote>
+<blockquote>
+<p>list(toolz.itertoolz.diff([1, 2, 3], [1, 2, 10, 100], default=None))<br>    [(3, 10), (None, 100)]</p>
+</blockquote>
+</blockquote>
+<p>A key function may also be applied to each item to use during comparisons:</p>
+</blockquote>
+<p><em>可以使用特定函数作为关键参数，来比较不同，如下面的不分大小写的比较（全部转成小写）。</em></p>
+<pre><code>&gt;&gt;&gt; <span class="atom">list</span>(<span class="atom">toolz</span>.<span class="atom">itertoolz</span>.<span class="atom">diff</span>([<span class="string">'apples'</span>, <span class="string">'bananas'</span>], [<span class="string">'Apples'</span>, <span class="string">'Oranges'</span>], <span class="atom">key</span>=<span class="atom">str</span>.<span class="atom">lower</span>))
+[(<span class="string">'bananas'</span>, <span class="string">'Oranges'</span>)]
+</code></pre><h4 id="toolz-itertoolz-topk(k,_seq,_key=None)[source]">toolz.itertoolz.topk(k, seq, key=None)[source]</h4><h3 id="返回list中k个最大的数，从大到小。">返回list中k个最大的数，从大到小。</h3><blockquote>
+<p>Find the k largest elements of a sequence</p>
+<p>Operates lazily in n*log(k) time</p>
+<blockquote>
+<blockquote>
+<p>toolz.itertoolz.topk(2, [1, 100, 10, 1000])<br>    (1000, 100)<br>Use a key function to change sorted order</p>
+</blockquote>
+</blockquote>
+<p><em>利用关键参数来改变排序</em></p>
+<blockquote>
+<blockquote>
+<p>toolz.itertoolz.topk(2, [‘Alice’, ‘Bob’, ‘Charlie’, ‘Dan’], key=len)<br>    (‘Charlie’, ‘Alice’)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="具体函数块_《二》Itertoolz">具体函数块 《二》Itertoolz</h2><p>待续。。。。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag">#python</a>
+          
+            <a href="/tags/toolz/" rel="tag">#toolz</a>
+          
+            <a href="/tags/python通用函数/" rel="tag">#python通用函数</a>
+          
+            <a href="/tags/函数/" rel="tag">#函数</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/05/绘声绘影X9软件安装及注册机/" rel="next" title="绘声绘影X9软件安装及注册机">
+                <i class="fa fa-chevron-left"></i> 绘声绘影X9软件安装及注册机
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/26/奴隶是怎么炼成的/" rel="prev" title="奴隶是怎么炼成的">
+                奴隶是怎么炼成的 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="公子苏" />
+          <p class="site-author-name" itemprop="name">公子苏</p>
+          <p class="site-description motion-element" itemprop="description">独立思考 | 洞察真相 | 自由表达 | 纯属巧合</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">69</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/suoba?tab=repositories" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">2.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入"><span class="nav-number">3.</span> <span class="nav-text">导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体函数块_《一》Itertoolz"><span class="nav-number">4.</span> <span class="nav-text">具体函数块 《一》Itertoolz</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-remove(predicate,_seq)[source]"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">toolz.itertoolz.remove(predicate, seq)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回谓词函数中的False值"><span class="nav-number">4.1.</span> <span class="nav-text">返回谓词函数中的False值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-accumulate(binop,_seq,_initial=’nodefault__’)[source]"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">toolz.itertoolz.accumulate(binop, seq, initial=’nodefault__’)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对某list中的数进行某种方式的累积计算"><span class="nav-number">4.2.</span> <span class="nav-text">对某list中的数进行某种方式的累积计算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-merge_sorted(seqs,_*kwargs)[source]"><span class="nav-number">4.2.0.1.</span> <span class="nav-text">toolz.itertoolz.merge_sorted(seqs, *kwargs)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并list，字符串,是惰性求值的。*"><span class="nav-number">4.3.</span> <span class="nav-text">合并list，字符串,是惰性求值的。*</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-interleave(seqs,_pass_exceptions=())[source]"><span class="nav-number">4.3.0.1.</span> <span class="nav-text">toolz.itertoolz.interleave(seqs, pass_exceptions=())[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接list，字符串中的元素间隔合并ab,ef_=>_aebf"><span class="nav-number">4.4.</span> <span class="nav-text">连接list，字符串中的元素间隔合并ab,ef =&gt; aebf</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-unique(seq,_key=None)[source]"><span class="nav-number">4.4.0.1.</span> <span class="nav-text">toolz.itertoolz.unique(seq, key=None)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保留唯一值，删除重复值。"><span class="nav-number">4.5.</span> <span class="nav-text">保留唯一值，删除重复值。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-isdistinct(seq)[source]"><span class="nav-number">4.5.0.1.</span> <span class="nav-text">toolz.itertoolz.isdistinct(seq)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断某个表达式是否有重复值，返回真假。"><span class="nav-number">4.6.</span> <span class="nav-text">判断某个表达式是否有重复值，返回真假。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-take_nth(n,_seq)[source]"><span class="nav-number">4.6.0.1.</span> <span class="nav-text">toolz.itertoolz.take_nth(n, seq)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从list第一个值开始取值，后面的每次间隔x步取值"><span class="nav-number">4.7.</span> <span class="nav-text">从list第一个值开始取值，后面的每次间隔x步取值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-mapcat(func,_seqs)[source]"><span class="nav-number">4.7.0.1.</span> <span class="nav-text">toolz.itertoolz.mapcat(func, seqs)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多个list进行map操作之后联合成一个list，高级map后串连成一个list"><span class="nav-number">4.8.</span> <span class="nav-text">多个list进行map操作之后联合成一个list，高级map后串连成一个list</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-frequencies(seq)[source]"><span class="nav-number">4.8.0.1.</span> <span class="nav-text">toolz.itertoolz.frequencies(seq)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算list所有元素出现次数。"><span class="nav-number">4.9.</span> <span class="nav-text">计算list所有元素出现次数。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-iterate(func,_x)[source]"><span class="nav-number">4.9.0.1.</span> <span class="nav-text">toolz.itertoolz.iterate(func, x)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反复应用某种函数，可以和next结合使用。"><span class="nav-number">4.10.</span> <span class="nav-text">反复应用某种函数，可以和next结合使用。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-partition(n,_seq,_pad=’nopad__’)[source]"><span class="nav-number">4.10.0.1.</span> <span class="nav-text">toolz.itertoolz.partition(n, seq, pad=’nopad__’)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将list分成n分，最后不够的分话就不要了或者补充参数pad=None"><span class="nav-number">4.11.</span> <span class="nav-text">将list分成n分，最后不够的分话就不要了或者补充参数pad=None</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-partition_all(n,_seq)[source]"><span class="nav-number">4.11.0.1.</span> <span class="nav-text">toolz.itertoolz.partition_all(n, seq)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将list平均分成n分，不够分，则其对应值为空"><span class="nav-number">4.12.</span> <span class="nav-text">将list平均分成n分，不够分，则其对应值为空</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#toolz-itertoolz-diff(seqs,_*kwargs)[source]"><span class="nav-number">4.12.0.1.</span> <span class="nav-text">toolz.itertoolz.diff(seqs, *kwargs)[source]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找出两个list不同的元素。"><span class="nav-number">4.13.</span> <span class="nav-text">找出两个list不同的元素。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#找出不同的元素并且逐一分好类，如果哪里少，补充None"><span class="nav-number">4.13.0.1.</span> <span class="nav-text">找出不同的元素并且逐一分好类，如果哪里少，补充None</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toolz-itertoolz-topk(k,_seq,_key=None)[source]"><span class="nav-number">4.13.1.</span> <span class="nav-text">toolz.itertoolz.topk(k, seq, key=None)[source]</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回list中k个最大的数，从大到小。"><span class="nav-number">4.14.</span> <span class="nav-text">返回list中k个最大的数，从大到小。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体函数块_《二》Itertoolz"><span class="nav-number">5.</span> <span class="nav-text">具体函数块 《二》Itertoolz</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">公子苏</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'Dksrz';
+      var disqus_identifier = '2016/07/07/python-toolz-笔记/';
+      var disqus_title = 'python toolz 笔记';
+      var disqus_url = 'http://zidushu.com/2016/07/07/python-toolz-笔记/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
